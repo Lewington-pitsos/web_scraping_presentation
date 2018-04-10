@@ -15,7 +15,8 @@ time(uri) do |uri|
   Net::HTTP.get(uri)
 end
 
-# time('https://www.google.com.au') do |uri|
 #   br = Watir::Browser.new :firefox, headless: true
+
+# time('https://www.google.com.au') do |uri|
 #   br.goto(uri)
 # end

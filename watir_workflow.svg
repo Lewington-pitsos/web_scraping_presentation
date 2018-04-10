@@ -116,9 +116,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="606.95834"
-     inkscape:cy="1383.0946"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="480.16725"
+     inkscape:cy="2318.6887"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -5348,5 +5348,39 @@ YDAYDKZscLAUBoPBYDBlg2UkBoPBYDBl8/8A54bECT+Z04UAAAAASUVORK5CYII=
          d="m 1306.3745,-438.43856 0,-193.94929"
          style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;marker-end:url(#marker7590)" />
     </g>
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m -171.42857,-1810.4949 1134.28571,0"
+       id="path7890"
+       inkscape:connector-curvature="0" />
+    <path
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 395.71429,-1933.3521 0,771.4286"
+       id="path7892"
+       inkscape:connector-curvature="0" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12.5px;line-height:50%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="-94.954338"
+       y="-1873.0396"
+       id="text7894"
+       sodipodi:linespacing="50%"><tspan
+         sodipodi:role="line"
+         id="tspan7896"
+         x="-94.954338"
+         y="-1873.0396"
+         style="font-size:50px">Offline Code</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:12.5px;line-height:50%;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="497.82828"
+       y="-1862.4807"
+       id="text7894-4"
+       sodipodi:linespacing="50%"><tspan
+         sodipodi:role="line"
+         id="tspan7896-8"
+         x="497.82828"
+         y="-1862.4807"
+         style="font-size:50px">Online Code</tspan></text>
   </g>
 </svg>

@@ -8,6 +8,7 @@ BSU = 'https://www.youtube.com/results?search_query='
 BR = Watir::Browser.new :firefox
 
 QJ = QueryGenerator.new()
+AR = Archivist.new()
 
 VIDEO = '#dismissable.ytd-video-renderer' # first one is blank
 
@@ -24,4 +25,20 @@ end
 def xml_page
   page = BR.html
   Nokogiri::HTML(page)
+end
+
+def save_page
+  page = xml_page()
+  AR.save_all_videos(page)
+end
+
+def single_scrape
+  next_page()
+  save_page()
+end
+
+def scrape(num)
+  num.times do
+    single_scrape()
+  end
 end

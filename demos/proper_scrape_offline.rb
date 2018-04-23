@@ -1,10 +1,11 @@
 require 'uri'
 require 'nokogiri'
+require 'yaml'
 
 class QueryGenerator
 
   @@chars = [
-    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z', '>', '<', '(', ')', '1', '2', '3', '4', '5', '6', '7', '8', '9'
+    'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z', '>', '<', '(', ')', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y, 'Z'
   ]
 
   def initialize(initial_string=-1)
@@ -48,19 +49,55 @@ class QueryGenerator
   end
 end
 
-VIDEO = '#contents.ytd-item-section-renderer #dismissable.ytd-video-renderer'
+class Archivist
 
-TITLE = '#video-title.ytd-video-renderer[title]' #id, not class
-# the url is the href of this element
-VIEWS = '#metadata-line' # the first child of this element
+  # we first locate the video list and then find all it's children that match the video container selector (there are other elements outside the video list that match the video container selector that we want to avoid)
+  @@video_selector = '#contents.ytd-item-section-renderer #dismissable.ytd-video-renderer'
 
-def all_videos(xml_page)
-  videos = xml_page.css(VIDEO)[1.. -1]
-  videos.each do |video|
-    title = video.css(TITLE)
-    puts title.text.strip
-    puts title.attribute('href').value.strip
-    puts video.css(VIEWS)[0].first_element_child.text.strip
+  # there are some elements with the same class and id but no title that we want to avoid
+  @@title_selector = '#video-title.ytd-video-renderer[title]'
+
+  # the element containing the view data is actually the first child of the element selected with the @@views selector
+  @@views_selector = '#metadata-line'
+
+  @@decimal = '00'
+  @@no_decimal = '000'
+
+  def save_all_videos(xml_page)
+    all_videos = []
+    videos = xml_page.css(VIDEO)[1.. -1]
+    videos.each do |video|
+      title = video.css(TITLE)
+      views = video.css(VIEWS)[0].first_element_child.text.strip
+      view_number = to_integer(views)
+
+      all_videos << {
+        url: title.attribute('href').value.strip,
+        views: view_number,
+        title: title.text.strip
+      }
+
+    end
+    add_to_database(all_videos)
+  end
+
+  private
+
+  def to_integer(string)
+    string = string.gsub('views', '')
+    if string.include?('.')
+      string = string.gsub('.', '')
+      base = @@decimal
+    else
+      base = @@no_decimal
+    end
+    string.gsub(/[KMB]/, 'K' => base, 'M' => base + '000', 'B' => base + '00000').to_i
+  end
+
+  def add_to_database(array)
+    data = YAML::load_file('./demos/database/test.yaml') || []
+    new_data = array.concat(data)
+    File.open('./demos/database/test.yaml', 'w') { |f| f.write new_data.to_yaml }
   end
 end
 
@@ -75,5 +112,10 @@ end
 
 doc = File.open('./demos/example_page.html') { |f| Nokogiri::HTML(f) }
 
-all_videos(doc)
+ar = Archivist.new()
+
+ar.all_videos(doc)
+
+
+p ar.send(:to_integer, '0.9K views')
 =end

@@ -8,5 +8,5 @@ p uri.scheme
 p uri.host
 p uri.path
 
-# page = Net::HTTP.get(uri)
-# p page
+page = Net::HTTP.get(uri)
+p page

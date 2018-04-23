@@ -1,4 +1,5 @@
 require 'uri'
+require 'nokogiri'
 
 class QueryGenerator
 
@@ -6,7 +7,7 @@ class QueryGenerator
     'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x','y', 'z', '>', '<', '(', ')', '1', '2', '3', '4', '5', '6', '7', '8', '9'
   ]
 
-  def initialize(initial_string=0)
+  def initialize(initial_string=-1)
     self.query = [initial_string]
   end
 
@@ -47,10 +48,32 @@ class QueryGenerator
   end
 end
 
+VIDEO = '#contents.ytd-item-section-renderer #dismissable.ytd-video-renderer'
+
+TITLE = '#video-title.ytd-video-renderer[title]' #id, not class
+# the url is the href of this element
+VIEWS = '#metadata-line' # the first child of this element
+
+def all_videos(xml_page)
+  videos = xml_page.css(VIDEO)[1.. -1]
+  videos.each do |video|
+    title = video.css(TITLE)
+    puts title.text.strip
+    puts title.attribute('href').value.strip
+    puts video.css(VIEWS)[0].first_element_child.text.strip
+  end
+end
+
+
 =begin
 q = QueryGenerator.new()
 
 400.times do
   p q.next_string
 end
+
+
+doc = File.open('./demos/example_page.html') { |f| Nokogiri::HTML(f) }
+
+all_videos(doc)
 =end
